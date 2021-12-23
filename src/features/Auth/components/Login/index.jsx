@@ -1,4 +1,3 @@
-import { unwrapResult } from "@reduxjs/toolkit";
 import { login } from "features/Auth/userSlice";
 import { useSnackbar } from "notistack";
 import PropTypes from "prop-types";
@@ -17,8 +16,9 @@ function Login(props) {
   const handleSubmit = async (values) => {
     try {
       const action = login(values);
-      const resultAction = await dispatch(action);
-      const user = unwrapResult(resultAction);
+      await dispatch(action);
+      // const resultAction = await dispatch(action);
+      // const user = unwrapResult(resultAction);
 
       // close dialog
       const { closeDialog } = props;

@@ -11,10 +11,6 @@ function CounterFeature(props) {
   const counter = useSelector((state) => state.counter);
   const handleIncreaseClick = () => {
     const action = increase(); // action creater, return object
-    console.log(
-      "🚀 ~ file: index.jsx ~ line 11 ~ handleIncreaseClick ~ action",
-      action
-    );
     dispatch(action);
   };
   const handleDecreaseClick = () => {

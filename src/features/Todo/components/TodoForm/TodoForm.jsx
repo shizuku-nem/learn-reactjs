@@ -29,7 +29,6 @@ function TodoForm(props) {
   });
 
   const handleSubmitForm = (values) => {
-    // console.log("values:", values);
     const { onSubmit } = props;
     if (onSubmit) {
       onSubmit(values);
