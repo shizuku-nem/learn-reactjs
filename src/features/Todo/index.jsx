@@ -30,7 +30,6 @@ function TodoFeature(props) {
     // clone current array to the new one
     const newTodoList = [...todoList];
 
-    console.log("todo: ", todo);
     // toggle state & update todoList
     newTodoList[index] = {
       ...newTodoList[index],

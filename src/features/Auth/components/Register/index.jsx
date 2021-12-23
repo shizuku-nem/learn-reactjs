@@ -29,7 +29,6 @@ function Register(props) {
         closeDialog();
       }
 
-      console.log("🚀 new user", user);
       enqueueSnackbar("Success register", { variant: "success" });
     } catch (error) {
       console.log("🚀 error handleSubmit in Register:", error);

@@ -1,4 +1,5 @@
 import Header from "components/Header";
+import ProductFeature from "features/Product";
 import React from "react";
 import { Redirect, Route, Switch } from "react-router";
 import "./App.css";
@@ -16,7 +17,6 @@ function App() {
   //     };
   //     // const productList = productApi.getAll();
   //     const productList = await productApi.getAll(params);
-  //     console.log(
   //       "🚀 ~ file: App.js ~ line 14 ~ fetchProducts ~ productList",
   //       productList
   //     );
@@ -29,13 +29,13 @@ function App() {
       <Header/>
       
       <Switch>
-        <Redirect from="/home" to="/" />
+        <Redirect from="/home" to="/products" />
 
+        <Route path="/" exact component={CounterFeature} />
         <Route path="/todos" component={TodoFeature} />
         <Route path="/albums" component={AlbumFeature} />
-        <Route path="/" component={CounterFeature} />
+        <Route path="/products" component={ProductFeature} />
       </Switch>
-      Footer
     </div>
   );
 }
