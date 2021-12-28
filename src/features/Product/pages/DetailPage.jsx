@@ -6,16 +6,18 @@ import {
   makeStyles,
   Paper,
 } from "@material-ui/core";
+import { addToCart } from "features/Cart/cartSlice";
 import React from "react";
-import ProductThumbnail from "../components/ProductThumbnail";
+import { useDispatch } from "react-redux";
 import { Route, Switch, useRouteMatch } from "react-router-dom";
-import useProductDetail from "../hooks/useProductDetail";
-import ProductInfo from "../components/ProductInfo";
 import AddToCartForm from "../components/AddToCartForm";
-import ProductMenu from "../components/ProductMenu";
-import ProductDescription from "../components/ProductDescription";
 import ProductAdditional from "../components/ProductAdditional";
+import ProductDescription from "../components/ProductDescription";
+import ProductInfo from "../components/ProductInfo";
+import ProductMenu from "../components/ProductMenu";
 import ProductReviews from "../components/ProductReviews";
+import ProductThumbnail from "../components/ProductThumbnail";
+import useProductDetail from "../hooks/useProductDetail";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,6 +51,7 @@ function DetailPage(props) {
   } = useRouteMatch();
 
   const { product, loading } = useProductDetail(productId);
+  const dispatch = useDispatch();
 
   if (loading) {
     return (
@@ -59,10 +62,12 @@ function DetailPage(props) {
   }
 
   const handleAddToCartSubmit = (formValues) => {
-    console.log(
-      "🚀 ~ file: DetailPage.jsx ~ line 38 ~ handleAddToCartSubmit ~ formValues",
-      formValues
-    );
+    const action = addToCart({
+      id: product.id,
+      product,
+      quantity: formValues.quantity,
+    });
+    dispatch(action);
   };
 
   return (

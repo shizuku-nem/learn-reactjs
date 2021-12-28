@@ -1,4 +1,4 @@
-import { Box, IconButton, Menu, MenuItem } from "@material-ui/core";
+import { Badge, Box, IconButton, Menu, MenuItem } from "@material-ui/core";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -6,13 +6,15 @@ import DialogContent from "@material-ui/core/DialogContent";
 import { makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import { AccountCircle, Close } from "@material-ui/icons";
+import { AccountCircle, Close, ShoppingCart } from "@material-ui/icons";
 import CodeIcon from "@material-ui/icons/Code";
 import Login from "features/Auth/components/Login";
 import Register from "features/Auth/components/Register";
 import { logout } from "features/Auth/userSlice";
+import { cartItemsCountSelector } from "features/Cart/selectors";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { Link, NavLink } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -46,11 +48,13 @@ const MODE = {
 export default function Header() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [mode, setMode] = React.useState("login");
+  const [mode, setMode] = React.useState(MODE.LOGIN);
   const loggedInUser = useSelector((state) => state.user.current);
   const isLoggedIn = !!loggedInUser?.id;
   const [anchorEl, setAnchorEl] = React.useState(null);
   const dispatch = useDispatch();
+  const cartItemsCount = useSelector(cartItemsCountSelector);
+  const history = useHistory();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -72,6 +76,10 @@ export default function Header() {
     const action = logout();
     dispatch(action);
     handleCloseMenu();
+  };
+
+  const handleCartClick = () => {
+    history.push("/cart");
   };
 
   return (
@@ -104,6 +112,16 @@ export default function Header() {
               <AccountCircle />
             </IconButton>
           )}
+
+          <IconButton
+            aria-label="show 4 new mails"
+            color="inherit"
+            onClick={handleCartClick}
+          >
+            <Badge badgeContent={cartItemsCount} color="secondary">
+              <ShoppingCart />
+            </Badge>
+          </IconButton>
         </Toolbar>
       </AppBar>
       <Menu
